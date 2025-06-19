@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LabCard from "./LabCard";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
 const LabList = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const navigate = useNavigate();
 
   const labs = [
     {
@@ -189,12 +191,7 @@ const LabList = () => {
       : labs.filter((lab) => lab.category === selectedCategory);
 
   const handleLabClick = (labId: number) => {
-    console.log(`Открываем лабораторную работу ${labId}`);
-    // Имитация навигации с визуальной обратной связью
-    const labTitle = labs.find((lab) => lab.id === labId)?.title;
-    alert(
-      `Открываем: "${labTitle}"\n\nВиртуальная лаборатория будет доступна скоро!`,
-    );
+    navigate(`/lab/${labId}`);
   };
 
   const handleCategoryChange = (categoryId: string) => {

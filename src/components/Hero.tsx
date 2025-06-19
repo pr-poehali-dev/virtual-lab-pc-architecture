@@ -1,18 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   const handleStartStudy = () => {
-    console.log("Начинаем изучение!");
-    // Прокрутка к списку лабораторных работ
     const labSection = document.querySelector('[data-section="labs"]');
     labSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleViewMaterials = () => {
     console.log("Открываем материалы курса");
-    // Здесь можно добавить навигацию к материалам
-    alert("Материалы курса будут доступны скоро!");
+    // Navigate to materials section/page
+    navigate("/materials");
   };
 
   return (

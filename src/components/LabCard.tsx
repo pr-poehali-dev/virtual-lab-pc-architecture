@@ -18,6 +18,11 @@ interface LabCardProps {
   duration: string;
   status: "not-started" | "in-progress" | "completed";
   topics: string[];
+  prerequisites?: string[];
+  learningOutcomes: string[];
+  tasksCount: number;
+  simulationType: string;
+  tools: string[];
   onClick: () => void;
 }
 
@@ -29,6 +34,11 @@ const LabCard = ({
   duration,
   status,
   topics,
+  prerequisites = [],
+  learningOutcomes,
+  tasksCount,
+  simulationType,
+  tools,
   onClick,
 }: LabCardProps) => {
   const getStatusIcon = () => {
@@ -72,19 +82,108 @@ const LabCard = ({
       </CardHeader>
 
       <CardContent>
-        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-          <div className="flex items-center gap-1">
-            <Icon name="Clock" size={16} />
-            <span>{duration}</span>
+        <div className="space-y-4">
+          {/* Основная информация */}
+          <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-1">
+              <Icon name="Clock" size={16} />
+              <span>{duration}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Icon name="List" size={16} />
+              <span>{tasksCount} заданий</span>
+            </div>
           </div>
-        </div>
 
-        <div className="flex flex-wrap gap-1">
-          {topics.map((topic, index) => (
-            <Badge key={index} variant="outline" className="text-xs">
-              {topic}
-            </Badge>
-          ))}
+          {/* Тип симуляции */}
+          <div className="flex items-center gap-2">
+            <Icon name="Monitor" size={16} className="text-blue-600" />
+            <span className="text-sm font-medium text-blue-800 bg-blue-50 px-2 py-1 rounded">
+              {simulationType}
+            </span>
+          </div>
+
+          {/* Предварительные требования */}
+          {prerequisites.length > 0 && (
+            <div>
+              <div className="flex items-center gap-1 mb-2">
+                <Icon name="BookOpen" size={14} className="text-orange-600" />
+                <span className="text-xs font-medium text-orange-800">
+                  Требования:
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {prerequisites.map((req, index) => (
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className="text-xs bg-orange-50 border-orange-200"
+                  >
+                    {req}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Результаты обучения */}
+          <div>
+            <div className="flex items-center gap-1 mb-2">
+              <Icon name="Target" size={14} className="text-green-600" />
+              <span className="text-xs font-medium text-green-800">
+                Вы изучите:
+              </span>
+            </div>
+            <ul className="text-xs text-gray-600 space-y-1">
+              {learningOutcomes.slice(0, 3).map((outcome, index) => (
+                <li key={index} className="flex items-start gap-1">
+                  <span className="text-green-500 mt-0.5">•</span>
+                  <span>{outcome}</span>
+                </li>
+              ))}
+              {learningOutcomes.length > 3 && (
+                <li className="text-gray-400 italic">
+                  +{learningOutcomes.length - 3} дополнительных навыков
+                </li>
+              )}
+            </ul>
+          </div>
+
+          {/* Инструменты */}
+          <div>
+            <div className="flex items-center gap-1 mb-2">
+              <Icon name="Wrench" size={14} className="text-purple-600" />
+              <span className="text-xs font-medium text-purple-800">
+                Инструменты:
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {tools.map((tool, index) => (
+                <Badge
+                  key={index}
+                  variant="outline"
+                  className="text-xs bg-purple-50 border-purple-200"
+                >
+                  {tool}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Темы */}
+          <div>
+            <div className="flex items-center gap-1 mb-2">
+              <Icon name="Tag" size={14} className="text-blue-600" />
+              <span className="text-xs font-medium text-blue-800">Темы:</span>
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {topics.map((topic, index) => (
+                <Badge key={index} variant="outline" className="text-xs">
+                  {topic}
+                </Badge>
+              ))}
+            </div>
+          </div>
         </div>
       </CardContent>
 

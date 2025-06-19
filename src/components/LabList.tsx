@@ -88,8 +88,17 @@ const LabList = () => {
       : labs.filter((lab) => lab.category === selectedCategory);
 
   const handleLabClick = (labId: number) => {
-    console.log(`Opening lab ${labId}`);
-    // Здесь будет навигация на страницу лабораторной работы
+    console.log(`Открываем лабораторную работу ${labId}`);
+    // Имитация навигации с визуальной обратной связью
+    const labTitle = labs.find((lab) => lab.id === labId)?.title;
+    alert(
+      `Открываем: "${labTitle}"\n\nВиртуальная лаборатория будет доступна скоро!`,
+    );
+  };
+
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    console.log(`Фильтруем по категории: ${categoryId}`);
   };
 
   return (
@@ -111,8 +120,8 @@ const LabList = () => {
             <Button
               key={category.id}
               variant={selectedCategory === category.id ? "default" : "outline"}
-              onClick={() => setSelectedCategory(category.id)}
-              className="flex items-center gap-2"
+              onClick={() => handleCategoryChange(category.id)}
+              className="flex items-center gap-2 transition-all duration-200 hover:scale-105"
             >
               <Icon name={category.icon as any} size={16} />
               {category.name}

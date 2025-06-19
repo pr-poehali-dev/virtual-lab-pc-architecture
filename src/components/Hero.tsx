@@ -2,6 +2,19 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
 const Hero = () => {
+  const handleStartStudy = () => {
+    console.log("Начинаем изучение!");
+    // Прокрутка к списку лабораторных работ
+    const labSection = document.querySelector('[data-section="labs"]');
+    labSection?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleViewMaterials = () => {
+    console.log("Открываем материалы курса");
+    // Здесь можно добавить навигацию к материалам
+    alert("Материалы курса будут доступны скоро!");
+  };
+
   return (
     <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white py-20">
       <div className="container mx-auto px-6 text-center">
@@ -17,14 +30,19 @@ const Hero = () => {
         </div>
 
         <div className="flex justify-center gap-4 mb-12">
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 px-8">
+          <Button
+            size="lg"
+            className="bg-blue-600 hover:bg-blue-700 px-8 transition-all duration-200 hover:scale-105"
+            onClick={handleStartStudy}
+          >
             <Icon name="Play" size={20} className="mr-2" />
             Начать изучение
           </Button>
           <Button
             variant="outline"
             size="lg"
-            className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8"
+            className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 transition-all duration-200 hover:scale-105"
+            onClick={handleViewMaterials}
           >
             <Icon name="BookOpen" size={20} className="mr-2" />
             Материалы курса

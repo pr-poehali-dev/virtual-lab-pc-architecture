@@ -91,7 +91,7 @@ const LabCard = ({
       <CardFooter>
         <Button
           onClick={onClick}
-          className="w-full bg-blue-600 hover:bg-blue-700"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95"
           variant={status === "completed" ? "outline" : "default"}
         >
           <Icon
